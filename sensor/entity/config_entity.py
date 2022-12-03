@@ -35,7 +35,21 @@ class DataIngestionConfig:
         except Exception  as e:
             raise SensorException(e,sys)
         
-class DataValidationConfig:...
+class DataValidationConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        try:
+            self.database_name="aps"
+            self.collection_name="sensor"
+            self.data_validation_dir = os.path.join(training_pipeline_config.artifact_dir , "data_validation")
+            self.report_file_path_path = os.path.join(self.data_validation_dir,"report.yaml")
+        except Exception  as e:
+            raise SensorException(e,sys)     
+
+    def to_dict(self,)->dict:
+        try:
+            return self.__dict__
+        except Exception  as e:
+            raise SensorException(e,sys)
 class DataTransformationConfig:...
 class ModelTrainerConfig:...
 class ModelEvaluationConfig:...
